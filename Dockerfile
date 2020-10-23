@@ -1,8 +1,6 @@
 # Use NodeJS base image
 FROM node:13
 
-RUN pwd
-
 # Create app directory
 WORKDIR /usr/src/app
 
