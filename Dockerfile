@@ -4,24 +4,24 @@ FROM node:13
 # Create app directory
 WORKDIR /usr/src/app
 
-CMD ["pwd"]
-CMD ["ls"]
+RUN pwd
+RUN ls
 
 # Install app dependencies by copying
 # package.json and package-lock.json
 COPY package*.json ./
 
-CMD ["ls"]
+RUN ls
 
 # Install dependencies
 RUN npm install
 
-CMD ["ls"]
+RUN ls
 
 # Copy app source
 COPY . .
 
-CMD ["ls"]
+RUN ls
 
 # Bind the port that the image will run on
 EXPOSE 8080

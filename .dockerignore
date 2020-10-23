@@ -1,1 +1,9 @@
 node_modules
+deployment.yml
+service.yml
+travis.yml
+.idea
+.git
+.gitignore
+.dockerignore
+Dockerfile
