@@ -19,3 +19,4 @@ EXPOSE 8080
 
 # Define the Docker image's behavior at runtime
 # CMD ["npm", "run", "prod"]
+CMD ["npm", "version"]
