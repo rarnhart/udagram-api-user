@@ -37,7 +37,7 @@ import {V0_FEED_MODELS, V0_USER_MODELS} from './controllers/v0/model.index';
   } );
 
   app.get("/health", (req, res, next) => {
-    res.status(200);
+    res.status(200).send("Hello");
   });
 
 
