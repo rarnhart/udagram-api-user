@@ -14,8 +14,6 @@ RUN npm install
 # Copy app source
 COPY . .
 
-RUN npm run build
-
 # Bind the port that the image will run on
 EXPOSE 8080
 
