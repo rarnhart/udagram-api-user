@@ -84,16 +84,21 @@ router.post('/', async (req: Request, res: Response) => {
   const email = req.body.email;
   const plainTextPassword = req.body.password;
 
+  console.log("Creating a new user...")
+
   if (!email || !EmailValidator.validate(email)) {
+    console.log("ERROR: The submitted email is missing or malformed.")
     return res.status(400).send({auth: false, message: 'Email is missing or malformed.'});
   }
 
   if (!plainTextPassword) {
+    console.log("ERROR: A password is required.")
     return res.status(400).send({auth: false, message: 'Password is required.'});
   }
 
   const user = await User.findByPk(email);
   if (user) {
+    console.log("ERROR: A user with that email already exists.")
     return res.status(422).send({auth: false, message: 'User already exists.'});
   }
 
@@ -108,6 +113,7 @@ router.post('/', async (req: Request, res: Response) => {
 
 
   const jwt = generateJWT(savedUser);
+  console.log("SUCCESS: The user was created.")
   res.status(201).send({token: jwt, user: savedUser.short()});
 });
 
