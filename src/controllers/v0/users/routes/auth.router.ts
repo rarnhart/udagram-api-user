@@ -10,6 +10,8 @@ import {NextFunction} from 'connect';
 import * as EmailValidator from 'email-validator';
 import {config} from 'bluebird';
 
+const { v4: uuidv4 } = require('uuid');
+
 const router: Router = Router();
 
 
@@ -81,24 +83,25 @@ router.post('/login', async (req: Request, res: Response) => {
 
 
 router.post('/', async (req: Request, res: Response) => {
+  let pid = uuidv4();
   const email = req.body.email;
   const plainTextPassword = req.body.password;
 
-  console.log("Creating a new user...")
+  console.log(new Date().toLocaleString() + `: ${pid} - Creating a new user...`)
 
   if (!email || !EmailValidator.validate(email)) {
-    console.log("ERROR: The submitted email is missing or malformed.")
+    console.log(new Date().toLocaleString() + `: ${pid} - ERROR: The submitted email is missing or malformed.`)
     return res.status(400).send({auth: false, message: 'Email is missing or malformed.'});
   }
 
   if (!plainTextPassword) {
-    console.log("ERROR: A password is required.")
+    console.log(new Date().toLocaleString() + `: ${pid} - ERROR: A password is required.`)
     return res.status(400).send({auth: false, message: 'Password is required.'});
   }
 
   const user = await User.findByPk(email);
   if (user) {
-    console.log("ERROR: A user with that email already exists.")
+    console.log(new Date().toLocaleString() + `: ${pid} - ERROR: A user with that email already exists.`)
     return res.status(422).send({auth: false, message: 'User already exists.'});
   }
 
@@ -113,7 +116,7 @@ router.post('/', async (req: Request, res: Response) => {
 
 
   const jwt = generateJWT(savedUser);
-  console.log("SUCCESS: The user was created.")
+  console.log(new Date.toLocaleString() + `: ${pid} - SUCCESS: The user was created.`)
   res.status(201).send({token: jwt, user: savedUser.short()});
 });
 
