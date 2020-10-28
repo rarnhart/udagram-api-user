@@ -116,7 +116,7 @@ router.post('/', async (req: Request, res: Response) => {
 
 
   const jwt = generateJWT(savedUser);
-  console.log(new Date.toLocaleString() + `: ${pid} - SUCCESS: The user was created.`)
+  console.log(new Date().toLocaleString() + `: ${pid} - SUCCESS: The user was created.`)
   res.status(201).send({token: jwt, user: savedUser.short()});
 });
 
